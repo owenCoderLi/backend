@@ -7,7 +7,7 @@ cd project
 // 安装依赖
 yarn install || npm install(推荐使用yarn, npm有源限制或切换本地的cnpm)
 // 运行模式
-yarn dev || yarn start:dev  -- 本地运行(mock环境)
+yarn dev || yarn start:dev  -- 本地运行(mock/环境)
 yarn start:test -- 本地运行(非mock环境)
 yarn eslint -- 项目eslint规范检测(部署测试环节)
 yarn tsc -- TypeScript静态编译
