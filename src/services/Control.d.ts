@@ -21,9 +21,9 @@ declare namespace Control { // 管理中心
   }
 
   export interface MenuInterface { // 菜单接口
-    key: string, // 普通树的唯一标识 id
+    key: string | number, // 普通树的唯一标识 id
     title: string, // 树的名称
-    value: string, // 搜索树的唯一标识 id
+    value: string | number, // 搜索树的唯一标识 id
     hasChild: boolean, // 是否有子级
     hasParent: false, // 是否有父级
     url: string, // 路由路径
@@ -40,10 +40,25 @@ declare namespace Control { // 管理中心
     children: MenuInterface[] // 子级
   }
 
+  export interface DeptInterface { // 部门接口
+    dept_id: number, // 部门id
+    order_num: number, // 排序位置
+    parent_id: number, // 上级id
+    status: number, // 状态
+    dept_name: string, // 部门名称
+  }
+
+  export interface RoleInterface { // 角色接口
+    role_id: number, // 角色id
+    role_name: string, // 角色名称
+    description: string, // 角色描述
+    status: number, // 状态 0启用 1禁用
+  }
+
   export interface RequestType { // 请求响应状态
     code: number;
     msg: string;
     total?: number;
-    data?: UserInterface | MenuInterface[];
+    data?: T;
   }
 }

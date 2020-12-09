@@ -15,9 +15,30 @@ export async function queryUserDetail(id: string) {
   })
 }
 
-// 菜单详情请求
-export async function queryMenus() {
-  return request<Control.RequestType>(`/api/controls/menus`, {
+// 菜单列表请求
+export async function queryMenuList() {
+  return request<Control.RequestType>(`/api/control/menu_list`, {
+    method: 'GET'
+  })
+}
+
+// 角色列表请求
+export async function queryRoleList() {
+  return request<Control.RequestType>(`/api/control/role_list`, {
+    method: 'GET'
+  })
+}
+
+// 用户列表请求
+export async function queryUserList() {
+  return request<Control.RequestType>(`/api/control/user_list`, {
+    method: 'GET'
+  })
+}
+
+// 部门列表请求
+export async function queryDeptList() {
+  return request<Control.RequestType>(`/api/control/dept_list`, {
     method: 'GET'
   })
 }
@@ -39,7 +60,7 @@ export async function queryUpdateMenus(params: Control.MenuInterface) {
 }
 
 // 新增部门请求
-export async function queryCreateDept(params: Control.MenuInterface) {
+export async function queryCreateDept(params: Control.DeptInterface) {
   return request<Control.RequestType>(`/api/control/dept_add`, {
     method: 'POST',
     data: params
@@ -47,7 +68,7 @@ export async function queryCreateDept(params: Control.MenuInterface) {
 }
 
 // 更新部门请求
-export async function queryUpdateDept(params: Control.MenuInterface) {
+export async function queryUpdateDept(params: Control.DeptInterface) {
   return request<Control.RequestType>(`/api/control/dept_update`, {
     method: 'POST',
     data: params

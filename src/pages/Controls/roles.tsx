@@ -43,10 +43,7 @@ const columns: ProColumns<Member.MemberInterface>[] = [
 // 用户管理
 const ControlRolePage: React.FC<{}> = () => {
 
-  const handleToCreate = () => {
-    console.log('-----------------------');
-    history.push('/controls/user/add');
-  }
+  const handleToCreate = () => {}
 
   return (
     <PageContainer>
@@ -59,7 +56,7 @@ const ControlRolePage: React.FC<{}> = () => {
         search={{defaultCollapsed: true}}
         toolBarRender={() => [
           <Button key="new" type="primary" onClick={handleToCreate}>
-            <PlusOutlined />新建用户
+            <PlusOutlined />新建角色
           </Button>
         ]}>
       </ProTable>
