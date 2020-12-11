@@ -281,6 +281,6 @@ function menuRule(req: Request, res: Response, u: string, b: Request) {
 }
 
 export default {
-  'GET /api/controls/users': usersRule,
+  'GET /api/controls/user_list': usersRule,
   'GET /api/controls/menus': menuRule,
 };

@@ -15,13 +15,13 @@ const ControlMenuPage: React.FC<{}> = () => {
   const [form] = Form.useForm();
   const [status, setStatus] = useState<number>(0); // 表单状态 0: 新增 1: 编辑
   const [show, setShow] = useState<boolean>(true); // 表单项显示状态
-  const [treeData, setTreeData] = useState<Array<Control.MenuInterface> | undefined>(); // 树型结构
+  const [treeData, setTreeData] = useState<Array<Control.MenuInterface>>([]); // 树型结构
 
   const {run: menuRun, cancel: menuCancel} = useRequest(queryMenuList, {
     manual: true,
     onSuccess: (res) => {
       if(res.code === 0) {
-        const data: Control.MenuInterface = res.data;
+        const data: Array<Control.MenuInterface> = res.data;
         setTreeData(data);
       } else {
         message.error(res.msg);

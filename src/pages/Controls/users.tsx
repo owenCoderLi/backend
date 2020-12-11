@@ -4,26 +4,18 @@ import {PageContainer} from '@ant-design/pro-layout';
 import ProTable, { ProColumns } from '@ant-design/pro-table';
 import {Button, Divider} from 'antd';
 import {PlusOutlined} from '@ant-design/icons';
-import {queryUsers} from '@/services/controlService';
+import {queryUserList} from '@/services/controlService';
 
 const columns: ProColumns<Control.UserInterface>[] = [
-  {title: '用户id', dataIndex: 'id', hideInTable: true, search: false},
-  {title: '姓名', dataIndex: 'name'},
+  {title: '用户id', dataIndex: 'user_id', hideInTable: true, search: false},
+  {title: '姓名', dataIndex: 'user_name'},
   {title: '手机号', dataIndex: 'phone', hideInTable: true, search: false},
   {title: '邮箱', dataIndex: 'email', search: false},
-  {title: '部门', dataIndex: 'department',
-    valueEnum: {
-      1: { text: '市场部', status: 'Error' },
-      2: { text: '中台', status: 'Success'},
-      3: { text: '运营', status: 'Warning'},
-      4: { text: '技术', status: 'Default'}
-    }
-  },
-  {title: '注册时间', dataIndex: 'register', valueType: 'dateTime', search: false},
+  {title: '部门', dataIndex: 'dept_name', search: false},
   {title: '用户状态', dataIndex: 'status',
     valueEnum: {
-      1: { text: '启用', status: 'Success' },
-      2: { text: '禁用', status: 'Error'}
+      0: { text: '启用', status: 'Success' },
+      1: { text: '禁用', status: 'Error'}
     }
   },
   {title: '操作', dataIndex: 'option', valueType: 'option',
@@ -31,7 +23,7 @@ const columns: ProColumns<Control.UserInterface>[] = [
       <>
         <Link to={{
           pathname: '/controls/edit',
-          search: `?id=${record.id}`,
+          search: `?id=${record.user_id}`,
         }}>编辑</Link>
         <Divider type="vertical" />
         <Button type="link">删除</Button>
@@ -54,7 +46,19 @@ const ControlUserPage: React.FC<{}> = () => {
         dateFormatter="string"
         headerTitle="用户列表"
         rowKey="id"
-        request={(params) => queryUsers(params)}
+        request={async(
+          params: Control.UserInterface & {
+            pageSize: number;
+            current: number;
+          }, sort, filter
+        ) => {
+          const res = await queryUserList()
+          return {
+            data: res.data,
+            success: res.code === 0,
+            total: res.total
+          }
+        }}
         search={{defaultCollapsed: true}}
         toolBarRender={() => [
           <Button key="new" type="primary" onClick={handleToCreate}>

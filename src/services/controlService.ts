@@ -1,18 +1,11 @@
 import { request } from 'umi';
 
 //  用户列表请求
-export async function queryUsers(params?: Control.UserInterface) {
-  return request<Control.RequestType>('/api/controls/users', {
+export async function queryUserList(params?: Control.UserInterface) {
+  return request<Control.RequestType>('/api/control/user_list', {
     method: 'GET',
     params: params,
   });
-}
-
-// 用户详情请求
-export async function queryUserDetail(id: string) {
-  return request<Control.RequestType>(`/api/controls/detail?id=${id}`, {
-    method: 'GET'
-  })
 }
 
 // 菜单列表请求
@@ -25,13 +18,6 @@ export async function queryMenuList() {
 // 角色列表请求
 export async function queryRoleList() {
   return request<Control.RequestType>(`/api/control/role_list`, {
-    method: 'GET'
-  })
-}
-
-// 用户列表请求
-export async function queryUserList() {
-  return request<Control.RequestType>(`/api/control/user_list`, {
     method: 'GET'
   })
 }
@@ -76,7 +62,7 @@ export async function queryUpdateDept(params: Control.DeptInterface) {
 }
 
 // 新增角色请求
-export async function queryCreateRole(params: Control.MenuInterface) {
+export async function queryCreateRole(params: Control.RoleInterface) {
   return request<Control.RequestType>(`/api/control/role_add`, {
     method: 'POST',
     data: params
@@ -84,8 +70,24 @@ export async function queryCreateRole(params: Control.MenuInterface) {
 }
 
 // 更新角色请求
-export async function queryUpdateRole(params: Control.MenuInterface) {
+export async function queryUpdateRole(params: Control.RoleInterface) {
   return request<Control.RequestType>(`/api/control/role_update`, {
+    method: 'POST',
+    data: params
+  })
+}
+
+// 新增用户请求
+export async function queryCreateUser(params: Control.UserInterface) {
+  return request<Control.RequestType>(`/api/control/user_add`, {
+    method: 'POST',
+    data: params
+  })
+}
+
+// 更新用户请求
+export async function queryUpdateUser(params: Control.UserInterface) {
+  return request<Control.RequestType>(`/api/control/user_update`, {
     method: 'POST',
     data: params
   })

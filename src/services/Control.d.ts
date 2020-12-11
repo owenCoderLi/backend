@@ -1,23 +1,25 @@
 declare namespace Control { // 管理中心
   export interface UserInterface { // 用户页面接口
     phone: number; // 手机号
-    name: string; // 姓名
+    user_id: number; // 用户id
+    user_name: string; // 用户名称
+    role_id: number; // 角色id
+    role_name: string; // 角色名称
+    dept_id: number; // 部门id
+    dept_name: string; // 部门名称
     status: number; // 用户状态
-    department: string; // 部门
-    register: Date; // 注册时间
     email: string; // 邮箱
-    id: number; // 用户id
     current?: number | undefined; // 当前分页数
     pageSize?: number | undefined; // 单页总数
   }
 
-  export interface DetailInterface { // 用户详情接口
+  export interface UserDetailInterface { // 用户详情接口
     phone: number; // 手机号
-    name: string; // 姓名
+    user_id: number; // 用户id
+    user_name: string; // 用户名称
     status: number; // 用户状态
     role: number; // 角色
     email: string; // 邮箱
-    id: number; // 用户id
   }
 
   export interface MenuInterface { // 菜单接口
@@ -46,12 +48,15 @@ declare namespace Control { // 管理中心
     parent_id: number, // 上级id
     status: number, // 状态
     dept_name: string, // 部门名称
+    data?: DeptInterface, // 当前树级数据
+    children?: DeptInterface[] // 子级树数据
   }
 
   export interface RoleInterface { // 角色接口
     role_id: number, // 角色id
     role_name: string, // 角色名称
     description: string, // 角色描述
+    perms?: Array<string>; // 角色权限合集
     status: number, // 状态 0启用 1禁用
   }
 

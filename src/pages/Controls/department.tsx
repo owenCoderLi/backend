@@ -5,24 +5,19 @@ import {Form, Tree, TreeSelect, Divider, Button, Input, message} from 'antd';
 import {useMount, useUnmount, useRequest} from 'ahooks';
 import {queryDeptList, queryCreateDept, queryUpdateDept} from '@/services/controlService';
 
-interface FormProps { // 表单项接口
-  id: number;
-  name: string;
-  order: string;
-}
 const {TreeNode} = Tree;
 
 // 用户管理
 const ControlDepartmentPage: React.FC<{}> = () => {
   const [form] = Form.useForm();
   const [status, setStatus] = useState<number>(0); // 表单状态 0新增 1更新
-  const [treeData, setTreeData] = useState<Array<Control.DeptInterface> | undefined>(); // 树型结构
+  const [treeData, setTreeData] = useState<Array<Control.DeptInterface>>([]); // 树型结构
 
   const {run: deptRun, cancel: deptCancel} = useRequest(queryDeptList, {
     manual: true,
     onSuccess: (res) => {
       if(res.code === 0) {
-        const data: Control.DeptInterface = res.data;
+        const data: Array<Control.DeptInterface> = res.data;
         setTreeData(data);
       } else {
         message.error(res.msg);
@@ -57,12 +52,12 @@ const ControlDepartmentPage: React.FC<{}> = () => {
     return treeData.map((item: any) => {
       if(item.children && item.children.length > 0) {
         return (
-          <TreeNode key={item.id} title={item.title}>
+          <TreeNode key={item.id} title={item.title} data={item.data}>
             {renderTreeData(item.children)}
           </TreeNode>
         )
       }
-      return <TreeNode key={item.id} title={item.title} />
+      return <TreeNode key={item.id} title={item.title} data={item.data} />
     })
   }
 
@@ -80,8 +75,24 @@ const ControlDepartmentPage: React.FC<{}> = () => {
     })
   }
 
-  const handleFormSubmit = (values: FormProps) => {
-    addRun(values)
+  // 触发树的点击事件
+  const handleTreeSelect = (selectedKeys: any, e: any) => {
+    const {data} = e.node;
+    setStatus(1);
+    form.setFieldsValue({
+      id: data.dept_id,
+      dept_name: data.dept_name ? data.dept_name : null,
+      order_num: data.order_num ? data.order_num : null,
+      parent_id: data.parent_id
+    })
+  }
+
+  const handleFormSubmit = (values: Control.DeptInterface) => {
+    if(status === 1) { // 更新
+      updateRun(values)
+    } else { // 新增
+      addRun(values)
+    }
   }
 
   // 首次加载
@@ -100,7 +111,7 @@ const ControlDepartmentPage: React.FC<{}> = () => {
     <PageContainer>
       <ProCard style={{ marginTop: 8 }} gutter={8} ghost>
         <ProCard colSpan={14} bordered>
-          <Tree checkable checkStrictly>
+          <Tree checkable checkStrictly onSelect={handleTreeSelect}>
             {treeData && treeData.length > 0 ? renderTreeData(treeData) : null}
           </Tree>
         </ProCard>
@@ -108,13 +119,16 @@ const ControlDepartmentPage: React.FC<{}> = () => {
           <Form labelCol={{ span: 4 }} wrapperCol={{span: 16}} form={form} onFinish={handleFormSubmit}>
             <h3>{status === 0 ? '新增部门' : '编辑部门'}</h3>
             <Divider />
-            <Form.Item name="id" label="上级部门">
+            <Form.Item name="id" hidden />
+            <Form.Item name="parent_id" label="上级部门">
               <TreeSelect treeData={treeData} />
             </Form.Item>
-            <Form.Item name="name" label="部门名称">
+            <Form.Item
+              name="dept_name" label="部门名称"
+              rules={[{ required: true, message: '请输入部门名称或职级名称' }]}>
               <Input placeholder="请输入部门名称或职级名称" />
             </Form.Item>
-            <Form.Item name="order" label="部门排序">
+            <Form.Item name="order_num" label="部门排序">
               <Input placeholder="请输入部门排序" />
             </Form.Item>
             <Form.Item labelAlign="right" wrapperCol={{offset: 4}}>
