@@ -1,5 +1,6 @@
 declare namespace Control { // 管理中心
-  export interface UserInterface { // 用户页面接口
+
+  export interface UserInterface { // 用户接口
     phone: number; // 手机号
     user_id: number; // 用户id
     user_name: string; // 用户名称
@@ -9,23 +10,11 @@ declare namespace Control { // 管理中心
     dept_name: string; // 部门名称
     status: number; // 用户状态
     email: string; // 邮箱
-    current?: number | undefined; // 当前分页数
-    pageSize?: number | undefined; // 单页总数
-  }
-
-  export interface UserDetailInterface { // 用户详情接口
-    phone: number; // 手机号
-    user_id: number; // 用户id
-    user_name: string; // 用户名称
-    status: number; // 用户状态
-    role: number; // 角色
-    email: string; // 邮箱
   }
 
   export interface MenuInterface { // 菜单接口
-    key: string | number, // 普通树的唯一标识 id
+    id: string | number, // 树的唯一标识
     title: string, // 树的名称
-    value: string | number, // 搜索树的唯一标识 id
     hasChild: boolean, // 是否有子级
     hasParent: false, // 是否有父级
     url: string, // 路由路径
@@ -56,7 +45,7 @@ declare namespace Control { // 管理中心
     role_id: number, // 角色id
     role_name: string, // 角色名称
     description: string, // 角色描述
-    perms?: Array<string>; // 角色权限合集
+    perms?: Array<string> | string; // 角色权限合集
     status: number, // 状态 0启用 1禁用
   }
 

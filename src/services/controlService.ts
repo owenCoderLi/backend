@@ -79,7 +79,7 @@ export async function queryUpdateRole(params: Control.RoleInterface) {
 
 // 新增用户请求
 export async function queryCreateUser(params: Control.UserInterface) {
-  return request<Control.RequestType>(`/api/control/user_add`, {
+  return request<Control.RequestType>(`/api/user/register`, {
     method: 'POST',
     data: params
   })
