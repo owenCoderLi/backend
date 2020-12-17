@@ -1,27 +1,27 @@
 import React from 'react';
-import { BasicLayoutProps, Settings as LayoutSettings } from '@ant-design/pro-layout';
+import { BasicLayoutProps, MenuDataItem, Settings as LayoutSettings } from '@ant-design/pro-layout';
 import { notification } from 'antd';
 import { history, RequestConfig } from 'umi';
+import { RequestOptionsInit, ResponseError } from 'umi-request';
+import {ControlOutlined, UserOutlined} from '@ant-design/icons';
 import RightContent from '@/components/RightContent';
 import Footer from '@/components/Footer';
-import { RequestOptionsInit, ResponseError } from 'umi-request';
-import { queryCurrent } from './services/userService';
+import { queryCurrent, queryUserMenu } from './services/userService';
 import defaultSettings from '../config/defaultSettings';
 
 export async function getInitialState(): Promise<{
   settings: LayoutSettings;
   currentUser?: User.UserState;
+  menuData?: MenuDataItem[];
 }> {
   let localId: string | null = localStorage.getItem('token') ? localStorage.getItem('token') : '';
   if(localId) { // 假设已经有缓存登录，直接加载
-    const res = await queryCurrent();
+    const res = await queryCurrent(); // 加载用户信息
+    const menuRes = await queryUserMenu(); // 加载用户路由菜单表
     return {
-      currentUser: res.data,
+      menuData: menuRes.data,
+      currentUser: res.data.userInfo,
       settings: defaultSettings
-    }
-  } else { // 未登录状态
-    if (history.location.pathname !== '/user/login') { // 如果是登录页面，不执行
-      return { settings: defaultSettings };
     }
   }
   return {
@@ -29,11 +29,28 @@ export async function getInitialState(): Promise<{
   };
 }
 
+const IconMap = {
+  UserOutlined: <UserOutlined />,
+  ControlOutlined: <ControlOutlined />
+}
+
 export const layout = ({
   initialState,
 }: {
-  initialState: { settings?: LayoutSettings; currentUser?: User.UserState };
+  initialState: {
+    settings?: LayoutSettings;
+    currentUser?: User.UserState;
+    menuData: any;
+  }
 }): BasicLayoutProps => {
+
+  const loopMenuItem = (menus: MenuDataItem[]): MenuDataItem[] =>
+    menus.map(({icon, children, ...item}) => ({
+      ...item,
+      icon: icon && IconMap[icon as string],
+      children: children && loopMenuItem(children)
+    }))
+
   return {
     rightContentRender: () => <RightContent />,
     disableContentMargin: false,
@@ -46,7 +63,7 @@ export const layout = ({
         history.push('/user/login');
       }
     },
-    menuHeaderRender: undefined,
+    menuDataRender: (menuData) => loopMenuItem(initialState.menuData || menuData),
     ...initialState?.settings,
   };
 };

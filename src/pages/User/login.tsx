@@ -23,8 +23,9 @@ const Login: React.FC<{}> = () => {
     try {
       const res = await userLogin({ ...values });
       if (res.code === 0) {
+        const data:User.UserState = res.data
         message.success('登录成功！');
-        localStorage.setItem('token', res.data.access_token);
+        localStorage.setItem('token', data.access_token);
         goto();
       } else {
         message.error(res.msg);
