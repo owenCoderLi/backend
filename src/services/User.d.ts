@@ -18,7 +18,7 @@ declare namespace User {
   }
 
   export interface LoginParamsType { // 登录参数接口
-    username: string;
+    phone: string;
     password: string;
   }
 }

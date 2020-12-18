@@ -9,29 +9,36 @@ import Footer from '@/components/Footer';
 import { queryCurrent, queryUserMenu } from './services/userService';
 import defaultSettings from '../config/defaultSettings';
 
+const IconMap = { // 项目本地icon映射
+  UserOutlined: <UserOutlined />,
+  ControlOutlined: <ControlOutlined />
+}
+
 export async function getInitialState(): Promise<{
-  settings: LayoutSettings;
-  currentUser?: User.UserState;
-  menuData?: MenuDataItem[];
+  settings: LayoutSettings; // 系统默认配置
+  currentUser?: User.UserState; // 当前用户信息
+  menuData?: MenuDataItem[]; // 菜单树
+  perms?: Array<string>; // 菜单权限表
 }> {
   let localId: string | null = localStorage.getItem('token') ? localStorage.getItem('token') : '';
   if(localId) { // 假设已经有缓存登录，直接加载
     const res = await queryCurrent(); // 加载用户信息
     const menuRes = await queryUserMenu(); // 加载用户路由菜单表
-    return {
-      menuData: menuRes.data,
-      currentUser: res.data.userInfo,
-      settings: defaultSettings
+    if(res.code === 0) {
+      return {
+        menuData: menuRes.data,
+        currentUser: res.data.userInfo,
+        perms: res.data.perms,
+        settings: defaultSettings
+      }
+    } else { // 获取不到个人数据(token失效)
+      localStorage.clear();
+      history.push('/user/login');
     }
   }
   return {
     settings: defaultSettings,
   };
-}
-
-const IconMap = {
-  UserOutlined: <UserOutlined />,
-  ControlOutlined: <ControlOutlined />
 }
 
 export const layout = ({
@@ -52,14 +59,13 @@ export const layout = ({
     }))
 
   return {
-    rightContentRender: () => <RightContent />,
     disableContentMargin: false,
+    rightContentRender: () => <RightContent />,
     footerRender: () => <Footer />,
     onPageChange: () => {
       const { currentUser } = initialState;
       const { location } = history;
-      // 如果没有登录，重定向到 login
-      if (!currentUser && location.pathname !== '/user/login') {
+      if (!currentUser && location.pathname !== '/user/login') { // 如果没有登录，重定向到 login
         history.push('/user/login');
       }
     },

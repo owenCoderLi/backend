@@ -14,6 +14,10 @@ const goto = () => {
   window.location.href = redirect || '/';
 };
 
+const phoneReg = {
+  'zh-CN': /^(\+?0?86\-?)?1[345789]\d{9}$/
+};
+
 const Login: React.FC<{}> = () => {
   const [loading, setLoading] = useState(false);
 
@@ -48,9 +52,22 @@ const Login: React.FC<{}> = () => {
         </div>
         <div className={styles.main}>
           <Form onFinish={handleSubmit}>
-            <Form.Item name="username" rules={[ {required: true, message: '请输入用户名!'} ]}>
+            <Form.Item
+              name="phone" validateTrigger="onBlur"
+              rules={[
+                {required: true, message: "请输入手机号"},
+                ({getFieldValue}) => ({
+                  validator(rule, value) {
+                    if(!phoneReg['zh-CN'].test(value) && value !== '') {
+                      return Promise.reject('检测手机号格式有误');
+                    } else {
+                      return Promise.resolve()
+                    }
+                  }
+                })
+              ]}>
               <Input
-                size="large" placeholder="请输入用户名"
+                size="large" placeholder="请输入手机号"
                 prefix={<UserOutlined style={{color: '#1890FF'}} />}
               />
             </Form.Item>
