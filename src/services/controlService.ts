@@ -16,9 +16,10 @@ export async function queryMenuList() {
 }
 
 // 角色列表请求
-export async function queryRoleList() {
+export async function queryRoleList(params?: Control.RoleInterface) {
   return request<Control.RequestType>(`/api/control/role_list`, {
-    method: 'GET'
+    method: 'GET',
+    params: params
   })
 }
 

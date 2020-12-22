@@ -2,7 +2,7 @@ import React from 'react';
 import {useMount, useUnmount} from 'ahooks';
 import _ from 'lodash';
 import {Modal, Button, Form, Input, Radio, Select, TreeSelect} from 'antd';
-import styles from './style.less';
+import styles from '../style.less';
 
 interface FormProps { // 表单对象接口
   user_id: number; // 用户id
@@ -35,8 +35,6 @@ const UserModalComponent: React.FC<ModalProps> = (props: ModalProps) => {
   const [form] = Form.useForm();
 
   const handleSubmitForm = (values: any) => {
-    // console.log('+++++++++++++++++++');
-    // console.log(values);
     handleCheck(values);
   }
 

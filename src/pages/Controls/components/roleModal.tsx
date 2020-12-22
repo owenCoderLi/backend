@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {useMount, useUnmount} from 'ahooks';
 import _ from 'lodash';
 import {Modal, Button, Form, Input, Radio, Tree} from 'antd';
-import styles from './style.less';
+import styles from '../style.less';
 
 interface FormProps {
   role_id: number;

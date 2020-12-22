@@ -49,7 +49,7 @@ declare namespace Control { // 管理中心
     status: number, // 状态 0启用 1禁用
   }
 
-  export interface RequestType { // 请求响应状态
+  export interface RequestType { // 请求响应状态接口
     code: number;
     msg: string;
     total?: number;
