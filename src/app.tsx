@@ -3,7 +3,7 @@ import { BasicLayoutProps, MenuDataItem, Settings as LayoutSettings } from '@ant
 import { notification } from 'antd';
 import { history, RequestConfig } from 'umi';
 import { RequestOptionsInit, ResponseError } from 'umi-request';
-import {ControlOutlined, UserOutlined} from '@ant-design/icons';
+import {ControlOutlined, UserOutlined, SlidersOutlined, CodepenOutlined} from '@ant-design/icons';
 import RightContent from '@/components/RightContent';
 import Footer from '@/components/Footer';
 import { queryCurrent, queryUserMenu } from './services/userService';
@@ -11,7 +11,9 @@ import defaultSettings from '../config/defaultSettings';
 
 const IconMap = { // 项目本地icon映射
   UserOutlined: <UserOutlined />,
-  ControlOutlined: <ControlOutlined />
+  ControlOutlined: <ControlOutlined />,
+  SlidersOutlined: <SlidersOutlined />,
+  CodepenOutlined: <CodepenOutlined />
 }
 
 export async function getInitialState(): Promise<{

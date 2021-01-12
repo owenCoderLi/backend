@@ -1,11 +1,11 @@
 import React from 'react';
 import {PageContainer} from '@ant-design/pro-layout';
 import ProTable, { ProColumns } from '@ant-design/pro-table';
-import {Button, Divider} from 'antd';
-import {PlusOutlined, MessageOutlined} from '@ant-design/icons';
-import {queryIdentity} from '@/services/memberService';
+import {Button, Divider, message} from 'antd';
+import {PlusOutlined} from '@ant-design/icons';
+import {queryIdentityList} from '@/services/memberService';
 
-const columns: ProColumns<Member.MemberInterface>[] = [
+const columns: ProColumns<Member.MemberListInterface>[] = [
   {title: '用户id', dataIndex: 'id', hideInTable: true},
   {title: '姓名', dataIndex: 'name'},
   {title: '手机号', dataIndex: 'phone', hideInTable: true},
@@ -73,6 +73,25 @@ const columns: ProColumns<Member.MemberInterface>[] = [
 
 // 身份认证
 const IdentityPage: React.FC<{}> = () => {
+
+  const handleQueryList = async(
+    params: Member.MemberListInterface & {current: number; pageSize: number;}
+  ) => {
+    const res = await queryIdentityList(params);
+    if(res.code === 0) {
+      return {
+        data: res.data,
+        success: true,
+        total: res.total
+      }
+    } else {
+      message.error(res.msg);
+      return {
+        data: [], success: false, total: 0
+      }
+    }
+  }
+
   return (
     <PageContainer>
       <ProTable
@@ -80,14 +99,11 @@ const IdentityPage: React.FC<{}> = () => {
         dateFormatter="string"
         headerTitle="用户列表"
         rowKey="id"
-        request={(params) => queryIdentity(params)}
+        request={handleQueryList}
         search={{defaultCollapsed: true}}
         toolBarRender={() => [
           <Button key="new" type="primary">
             <PlusOutlined />新建
-          </Button>,
-          <Button key="msg" type="primary">
-            <MessageOutlined />群发短信
           </Button>
         ]}>
       </ProTable>

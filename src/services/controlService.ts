@@ -41,7 +41,7 @@ export async function queryCreateMenus(params: Control.MenuInterface) {
 // 更新菜单 / 按钮 请求
 export async function queryUpdateMenus(params: Control.MenuInterface) {
   return request<Control.RequestType>(`/api/control/menu_update`, {
-    method: 'UPDATE',
+    method: 'POST',
     data: params
   })
 }

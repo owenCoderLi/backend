@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import {SearchInterface} from '@/services/Control.d';
+import {SearchParamInterface} from '@/services/Control.d';
 
 const treeData = [
   {
@@ -234,7 +234,7 @@ const treeData = [
 ]
 
 const userList = (current: number, pageSize: number) => {
-  const userListData: SearchInterface[] = [];
+  const userListData: SearchParamInterface[] = [];
   for (let i = 0; i < pageSize; i += 1) {
     const index = (current - 1) * 20 + i;
     userListData.push({

@@ -22,7 +22,7 @@ const ControlRolePage: React.FC<{}> = () => {
   const [treeData, setTreeData] = useState<Array<Control.MenuInterface>>([]); // 树型结构
   const [detailData, setDetailData] = useState<any>(); // 详情数据
 
-  const columns: ProColumns<Member.MemberInterface>[] = [
+  const columns: ProColumns<Member.MemberListInterface>[] = [
     {title: '角色id', dataIndex: 'role_id', search: false},
     {title: '角色名称', dataIndex: 'role_name', search: false},
     {title: '角色描述', dataIndex: 'description', search: false},
@@ -85,7 +85,7 @@ const ControlRolePage: React.FC<{}> = () => {
 
   // 获取角色列表
   const handleRequestList = async(
-    params: Control.RoleInterface & {page: number; curPage: number;}
+    params: Control.RoleInterface & {current: number; pageSize: number;}
   ) => {
     const res = await queryRoleList(params);
     if(res.code === 0) {

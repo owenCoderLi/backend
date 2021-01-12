@@ -3,7 +3,7 @@ import {PageContainer} from '@ant-design/pro-layout';
 import ProTable, { ProColumns } from '@ant-design/pro-table';
 import {message, Select} from 'antd';
 import {useMount, useDebounceFn} from 'ahooks';
-import {querySearch, queryProvince, queryCity, queryIndustry, queryStock} from '@/services/memberService';
+import {querySearchIdentity, queryProvince, queryCity, queryIndustry, queryStock} from '@/services/memberService';
 
 const {Option} = Select;
 let provinceList: Array<Member.OtherInterface> = [];
@@ -56,6 +56,24 @@ const SearchPage: React.FC<{}> = () => {
     }
   };
 
+  const handleQueryList = async(
+    params: Member.SearchParamInterface & {current: number; pageSize: number;}
+  ) => {
+    const res = await querySearchIdentity(params);
+    if(res.code === 0) {
+      return {
+        data: res.data,
+        success: true,
+        total: res.total
+      }
+    } else {
+      message.error(res.msg);
+      return {
+        data: [], success: false, total: 0
+      }
+    }
+  }
+
   // 初次渲染
   useMount(() => {
     handleRequestIndustry();
@@ -70,7 +88,7 @@ const SearchPage: React.FC<{}> = () => {
   );
 
   // 表格列定义
-  const columns: ProColumns<Member.SearchInterface>[] = [
+  const columns: ProColumns<Member.SearchParamInterface>[] = [
     {title: '用户id', dataIndex: 'id'},
     {title: '姓名', dataIndex: 'name'},
     {title: '手机号', dataIndex: 'phone', hideInTable: true},
@@ -362,9 +380,7 @@ const SearchPage: React.FC<{}> = () => {
         dateFormatter="string"
         headerTitle="用户列表"
         rowKey="id"
-        request={(params) => querySearch(params)}
-        onSubmit={(params) => querySearch(params)}
-        search={{defaultCollapsed: true}} >
+        request={handleQueryList}>
       </ProTable>
     </PageContainer>
   )

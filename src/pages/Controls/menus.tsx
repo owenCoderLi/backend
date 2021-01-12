@@ -70,7 +70,7 @@ const ControlMenuPage: React.FC<{}> = () => {
       icon: data.icon ? data.icon : null,
       name: data.menu_name ? data.menu_name : null,
       order: data.order_num ? data.order_num : null,
-      id: data.parent_id,
+      parent_id: data.parent_id, id: data.menu_id,
       url: data.path ? data.path : null,
       type: data.types ? data.types : 0,
       perms: data.perms ? data.perms : null,
@@ -125,7 +125,7 @@ const ControlMenuPage: React.FC<{}> = () => {
       form.setFieldsValue({
         icon: null, name: null, order: null,
         url: null, perms: null, component: null,
-        id: 0, type: 0
+        parent_id: 0, type: 0, id: null
       });
     }
   }
@@ -185,7 +185,7 @@ const ControlMenuPage: React.FC<{}> = () => {
           <Form labelCol={{ span: 4 }} wrapperCol={{span: 16}} form={form} onFinish={handleFinish}>
             <h3>{status === 0 ? '新增菜单' : '编辑菜单'}</h3>
             <Divider />
-            <Form.Item name="id" label="上级菜单">
+            <Form.Item name="parent_id" label="上级菜单">
               <TreeSelect>
                 {treeData && treeData.length > 0 ? renderSelectTreeData(treeData) : null}
               </TreeSelect>
@@ -193,6 +193,7 @@ const ControlMenuPage: React.FC<{}> = () => {
             <Form.Item name="name" label="名称">
               <Input placeholder="请输入菜单名称" />
             </Form.Item>
+            <Form.Item name="id" hidden />
             <Form.Item name="type" label="类型">
               <Radio.Group onChange={(e) => handleChangeRadio(e.target.value)}>
                 <Radio value={0}>菜单</Radio>

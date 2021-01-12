@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
-import {SearchInterface, MemberInterface} from '@/services/Member.d';
+import {SearchParamInterface, MemberListInterface} from '@/services/Member.d';
 
 const searchList = (current: number, pageSize: number) => {
-  const searchListDataSource: SearchInterface[] = [];
+  const searchListDataSource: SearchParamInterface[] = [];
   for (let i = 0; i < pageSize; i += 1) {
     const index = (current - 1) * 20 + i;
     searchListDataSource.push({
@@ -20,7 +20,7 @@ const searchList = (current: number, pageSize: number) => {
 };
 
 const identityList = (current: number, pageSize: number) => {
-  const identityListDataSource: MemberInterface[] = [];
+  const identityListDataSource: MemberListInterface[] = [];
   for (let i = 0; i < pageSize; i += 1) {
     const index = (current - 1) * 20 + i;
     identityListDataSource.push({

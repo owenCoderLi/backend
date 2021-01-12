@@ -1,5 +1,5 @@
-declare namespace Member {
-  export interface SearchInterface { // 搜索页面接口
+declare namespace Member { // 会员接口管理
+  export interface SearchParamInterface { // 搜索参数接口
     status: number; // 认证状态
     phone: number; // 手机号
     name: string; // 姓名
@@ -40,12 +40,10 @@ declare namespace Member {
     vote: number;// 新财富投票机构
     sort: number;// 排序字段
     machine: number;// 机器人账号
-    virtual: number;// 虚拟号,
-    current?: number | undefined; // 当前分页数
-    pageSize?: number | undefined; // 单页总数
+    virtual: number;// 虚拟号
   }
 
-  export interface MemberInterface { // 认证页面接口
+  export interface MemberListInterface { // 认证用户列表接口
     id: number; // 用户id
     status: number; // 身份认证状态
     realStatus: number; // 身份证认证状态
@@ -56,15 +54,17 @@ declare namespace Member {
     phone: number; // 手机号
     idNum: number;// 身份证号
     register: Date; // 注册时间
-    current?: number | undefined; // 当前分页数
-    pageSize?: number | undefined; // 单页总数
+  }
+
+  export interface MemberDetailInterface { // 会员信息接口
+
   }
 
   export interface RequestType { // 列表请求状态
     code: number;
     msg: string;
     total?: number;
-    data: Array[];
+    data: T;
   }
 
   export interface OtherInterface { // 搜索页面非查询字段接口

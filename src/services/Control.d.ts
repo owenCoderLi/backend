@@ -1,4 +1,4 @@
-declare namespace Control { // 管理中心
+declare namespace Control { // 系统管理中心(用户权限/菜单)
 
   export interface UserInterface { // 用户接口
     phone: number; // 手机号

@@ -1,4 +1,4 @@
-declare namespace User {
+declare namespace User { // 当前用户接口管理
   export interface UserState { // 当前用户数据
     user_name: string; // 用户名称
     user_id: string; // 用户
