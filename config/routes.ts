@@ -62,11 +62,6 @@ export default [
     icon: 'SlidersOutlined',
     routes: [
       {
-        name: '上市公司管理', path: '/base/company',
-        component: './Base/company.tsx',
-        access: 'permRouterFilter'
-      },
-      {
         name: '行业列表管理', path: '/base/industry',
         component: './Base/industry.tsx',
         access: 'permRouterFilter'

@@ -56,7 +56,7 @@ const Login: React.FC<{}> = () => {
               name="phone" validateTrigger="onBlur"
               rules={[
                 {required: true, message: "请输入手机号"},
-                ({getFieldValue}) => ({
+                ({}) => ({
                   validator(rule, value) {
                     if(!phoneReg['zh-CN'].test(value) && value !== '') {
                       return Promise.reject('检测手机号格式有误');

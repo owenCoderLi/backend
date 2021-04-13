@@ -18,12 +18,12 @@ export default {
     }
   },
   'POST /api/user/login': (req: Request, res: Response) => {
-    const { password, username } = req.body;
-    if (password === 'admin' && username === 'admin') {
+    const { password, phone } = req.body;
+    if (password === 'admin' && phone === '13929377188') {
       res.send({
         code: 0,
         msg: 'admin login success',
-        data: {token: 'nWpVCzompeiHNm7CjA3TeDXiHEBBQATx6c19EeMY', access: 'admin'}
+        data: {access_token: 'nWpVCzompeiHNm7CjA3TeDXiHEBBQATx6c19EeMY'}
       });
     } else {
       res.send({ code: 1, msg: 'login failure', data: {} });

@@ -12,21 +12,6 @@ declare namespace Base { // 基础数据接口管理
     msg: string;
   }
 
-  export interface CompanyInterface { // 上市公司接口
-    id: number; // id
-    code: string; // 代码
-    name: string; // 名称
-    shorthand: string; // 简写
-    addtime: string; // 添加时间
-    fullName: string; // 全称
-    address: string; // 地址
-    work_address: string; // 工作地址
-    telephone: string; // 联系方式
-    email: string; // 邮箱
-    capital_all: number; // 总股本
-    capital_it: number; // 流通股本
-  }
-
   export interface OrganizeInterface { // 机构接口
     id: number; // id
     number: string; // 编号
@@ -43,4 +28,24 @@ declare namespace Base { // 基础数据接口管理
     reg_capital: string; // 注册资本
   }
 
+  export interface IndustryInterface { // 行业接口
+    industry_id: string; // 行业id
+    industry_name: string; // 行业名称
+    industry_type: number; // 行业分类
+  }
+
+  export interface StockInterface { // 股票代码接口
+    id: number; // id
+    code: string; // 代码
+    name: string; // 名称
+    shorthand: string; // 简写
+    addtime: string; // 添加时间
+    fullName: string; // 全称
+    address: string; // 地址
+    work_address: string; // 工作地址
+    telephone: string; // 联系方式
+    email: string; // 邮箱
+    capital_all: number; // 总股本
+    capital_it: number; // 流通股本
+  }
 }
