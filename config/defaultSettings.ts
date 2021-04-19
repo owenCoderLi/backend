@@ -12,7 +12,7 @@ export default {
   menu: {
     locale: false,
   },
-  title: '约调研后台',
+  title: '后台',
   pwa: false,
   logo: 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
   iconfontUrl: '',

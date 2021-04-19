@@ -74,7 +74,7 @@ const userList = (current: number, pageSize: number) => {
       name: `Name ${index}`,
       department: Math.floor(Math.random() * 4) + 1,
       phone: `139293221${Math.round(Math.random() * 80 + 18)}`,
-      email: `test${index}@yuediaoyan.com`,
+      email: `test${index}@qq.com`,
       register: new Date(),
       status: Math.floor(Math.random() * 2) + 1,
     });

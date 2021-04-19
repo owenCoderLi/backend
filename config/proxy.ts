@@ -15,14 +15,14 @@ export default {
   },
   test: {
     '/api/': {
-      target: 'https://test.yuediaoyan.com',
+      target: '',
       changeOrigin: true,
       pathRewrite: { '^': '' },
     },
   },
   prod: {
     '/api/': {
-      target: 'https://www.yuediaoyan.com',
+      target: '',
       changeOrigin: true,
       pathRewrite: { '^': '' },
     },

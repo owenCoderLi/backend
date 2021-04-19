@@ -13,7 +13,7 @@ export default defineConfig({
     hmr: true,
   },
   layout: {
-    name: '约调研后台业务系统',
+    name: '后台业务系统',
     locale: true,
     ...defaultSettings,
   },

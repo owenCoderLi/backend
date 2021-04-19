@@ -6,7 +6,7 @@ export default (): React.ReactNode => (
   <PageContainer>
     <Card>
       <Alert
-        message="这里是约调研后台管理系统"
+        message="这里是后台管理系统"
         type="success"
         showIcon banner
         style={{margin: -12, marginBottom: 24}}

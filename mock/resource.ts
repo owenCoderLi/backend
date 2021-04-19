@@ -70,7 +70,7 @@ const productList = (current: number, pageSize: number) => {
       fund_type: Math.round(Math.random() * 2), // 基金类型
       name: `投资者名称${index}`, // 投资者名称
       type: Math.round(Math.random() * 2), // 投资者类型
-      email: `owenli@yuediaoyan.com`, // 邮箱
+      email: `owenli@qq.com`, // 邮箱
     });
   }
   return productListData;
